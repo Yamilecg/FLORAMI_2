@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cotización de Crucero</title>
+  <link rel="stylesheet" href="/styles/style_crucero.css">
+</head>
+<body>
+
+<a href="/index.html" class="back-btn">←</a>
+
+<div class="container">
+  <h1>Formulario de Cotización de Crucero</h1>
+
+  <form id="form">
+
+    <!-- DATOS GENERALES -->
+    <div class="card">
+      <h2>Datos Generales</h2>
+      <input type="text" name="Nombre_Viaje" placeholder="Nombre/Apellido/Título del viaje">
+    </div>
+
+    <!-- FECHAS -->
+    <div class="card">
+      <h2>Fechas</h2>
+      <div class="grid-2">
+        <input type="date" name="fecha_embarque" placeholder="Fecha inicio">
+        <input type="date" name="fecha_desembarque" placeholder="Fecha fin">
+      </div>
+    </div>
+
+    <!-- DESTINOS -->
+    <div class="card">
+      <h2>Destinos</h2>
+
+      <div id="destinos-container">
+        <div class="destino">
+          <input type="text" name="destino" placeholder="Ingrese un destino">
+          <input type="text" name="nombre_hospedaje" placeholder="Ingrese el nombre del hospedaje">
+          <button type="button" class="remove">X</button>
+        </div>
+      </div>
+
+      <button type="button" id="add-destino" class="add-btn">
+        + Agregar destino
+      </button>
+    </div>
+
+    <!-- PASAJEROS -->
+    <div class="card">
+      <h2>Pasajeros</h2>
+
+      <div id="pasajeros-container">
+        <div class="pasajero">
+          <input type="text" name="nombre" placeholder="Nombre(s)">
+          <input type="text" name="Apellidos" placeholder="Apellido(s)">
+          <input type="number" name="edad" placeholder="Edad">
+          <button type="button" class="remove">X</button>
+        </div>
+      </div>
+
+      <button type="button" id="add-pasajero" class="add-btn">
+        + Agregar pasajero
+      </button>
+    </div>
+
+    <!-- COSTOS -->
+    <div class="card">
+      <h2>Costos</h2>
+      <div class="grid-2">
+        <input type="text" name="total_persona" placeholder="Total por persona">
+        <input type="text" name="total_general" placeholder="Total general">
+      </div>
+    </div>
+
+  <!-- ITINERARIO -->
+  <div class="card">
+    <h2>Itinerario</h2>
+
+    <div id="itinerario-container">
+      <div class="itinerario-item">
+        <input type="text" name="dia" placeholder="Ingrese el día (Ej: Día 1, Día 2, etc.)">
+        <textarea name="descripcion" placeholder="Descripción del día..."></textarea>
+        <button type="button" class="remove">X</button>
+      </div>
+    </div>
+
+    <button type="button" id="add-itinerario" class="add-btn">
+      + Agregar día
+    </button>
+  </div>
+
+
+    <!-- TEXTOS -->
+    <div class="card">
+      <h2>Beneficios</h2>
+      <textarea name="beneficios" placeholder="Beneficios del Viaje..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Restricciones</h2>
+      <textarea name="restricciones" placeholder="Restricciones del viaje"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Actividades</h2>
+      <textarea name="actividades_detalladas" placeholder="Ingrese las actividades del crucero..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Plan de Alimentos</h2>
+      <textarea name="plan_alimentos" placeholder="Ingrese el Plan de alimentación..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">
+      Descargar DOCX
+    </button>
+
+  </form>
+</div>
+
+<script src="/Add_crucero.js"></script>
+<script src="/app.js"></script>
+
+</body>
+</html>

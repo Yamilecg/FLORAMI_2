@@ -1,0 +1,231 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f7fb;
+  color: #1e293b;
+}
+
+/* Layout */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* Titles */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+h2 {
+  margin-bottom: 12px;
+  color: #043262;
+}
+
+/* Grid */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Inputs */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: #043262;
+  outline: none;
+}
+
+/* Textarea */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Botón submit */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #043262;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #06509a;
+}
+
+/* Botón agregar */
+.add-btn {
+  margin-top: 10px;
+  background: #e2e8f0;
+  color: #1e293b;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #cbd5e1;
+}
+
+/* =====================
+   PASAJEROS
+===================== */
+
+.pasajero {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px 40px;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f9fbfd;
+}
+
+.pasajero input[name="edad"] {
+  text-align: center;
+}
+
+/* =====================
+   DESTINOS
+===================== */
+
+.destino {
+  display: grid;
+  grid-template-columns: 1fr 1fr 40px;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f9fbfd;
+}
+
+/* =====================
+   ITINERARIO
+===================== */
+
+.itinerario-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 40px;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f9fbfd;
+  transition: 0.2s;
+}
+
+.itinerario-item:hover {
+  border-color: #043262;
+  background: #f1f6fb;
+}
+
+.itinerario-item input {
+  font-weight: 500;
+}
+
+.itinerario-item textarea {
+  min-height: 60px;
+}
+
+/* =====================
+   BOTÓN ELIMINAR
+===================== */
+
+.remove {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.remove:hover {
+  background: #cc0000;
+}
+
+/* =====================
+   BACK BUTTON
+===================== */
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 45px;
+  height: 45px;
+  background: white;
+  color: #043262;
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.back-btn:hover {
+  background: #043262;
+  color: white;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .pasajero,
+  .destino,
+  .itinerario-item {
+    grid-template-columns: 1fr;
+  }
+
+  .remove {
+    width: 100%;
+  }
+}

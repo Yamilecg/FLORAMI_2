@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cotización de Vuelos</title>
+  <link rel="stylesheet" href="/styles/style_vuelo.css">
+</head>
+<body>
+
+<a href="/index.html" class="back-btn">←</a>
+
+<div class="container">
+  <h1>Formulario de Cotización de Vuelos</h1>
+
+  <form id="form">
+
+    <!-- DATOS GENERALES -->
+    <div class="card">
+      <h2>Datos Generales</h2>
+      <input 
+        type="text" 
+        name="Nombre_Viaje" 
+        placeholder="Nombre / Apellido / Título del viaje"
+      >
+    </div>
+
+    <!-- DESTINOS DE VUELO -->
+    <div class="card">
+      <h2>Trayectos de Vuelo</h2>
+
+      <div id="vuelos-container">
+        <div class="vuelo">
+          <input type="text" name="origen" placeholder="Ciudad de salida (Ej: Guadalajara)">
+          <input type="text" name="destino" placeholder="Ciudad de llegada (Ej: Cancún)">
+          <button type="button" class="remove">X</button>
+        </div>
+      </div>
+
+      <button type="button" id="add-vuelo" class="add-btn">
+        + Agregar trayecto
+      </button>
+    </div>
+
+    <!-- COSTOS -->
+    <div class="card">
+      <h2>Costos</h2>
+      <div class="grid-2">
+        <input type="text" name="costo_persona" placeholder="Costo por persona (Ej: 5,000 MXN)">
+        <input type="text" name="costo_total" placeholder="Costo total (Ej: 20,000 MXN)">
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">
+      Descargar DOCX
+    </button>
+
+  </form>
+</div>
+
+<script src="/add_vuelos.js"></script>
+<script src="/app_vuelos.js"></script>
+
+</body>
+</html>
