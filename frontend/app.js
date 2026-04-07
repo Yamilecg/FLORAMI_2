@@ -26,7 +26,7 @@ form.addEventListener("submit", async (e) => {
 
   // nombre dinámico
   const nombre = (data.Nombre_Viaje || "viaje").replace(/\s+/g, "_");
-  a.download = `cotizacion_${nombre}.docx`;
+  a.download = `cotización_${nombre}.docx`;
 
   a.click();
   window.URL.revokeObjectURL(url);

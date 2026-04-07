@@ -25,7 +25,7 @@ form.addEventListener("submit", async (e) => {
   a.href = url;
 
   const nombre = (data.Nombre_Viaje || "viaje").replace(/\s+/g, "_");
-  a.download = `cotizacion_viaje_${nombre}.docx`;
+  a.download = `cotización_viaje_${nombre}.docx`;
 
   a.click();
   window.URL.revokeObjectURL(url);

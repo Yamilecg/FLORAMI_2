@@ -22,7 +22,7 @@ const res = await fetch("/generar-vuelos", {
   a.href = url;
 
   const nombre = (data.Nombre_Viaje || "vuelos").replace(/\s+/g, "_");
-  a.download = `cotizacion_vuelos_${nombre}.docx`;
+  a.download = `cotización_vuelos_${nombre}.docx`;
 
   a.click();
   window.URL.revokeObjectURL(url);

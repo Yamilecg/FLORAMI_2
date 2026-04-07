@@ -1,40 +1,75 @@
-/* Reset básico */
-body {
+/* Reset */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* Fondo */
-  background: linear-gradient(135deg, #2c7be5, #043262);
+/* Body base */
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+  overflow: hidden;
 }
 
-/* Logo en esquina */
+/* Fondo: logo fullscreen */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: url('/images/logo.jpg') no-repeat center;
+  background-size: cover;
+
+  filter: blur(10px); /* 🔹 Menos blur para que se vea */
+  transform: scale(1.1);
+
+  z-index: 0;
+}
+
+/* Overlay suave */
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    rgba(0, 20, 50, 0.15),  /* menos opaco */
+    rgba(0, 20, 50, 0.25)
+  );
+
+  z-index: 1;
+}
+
+/* Ocultar logo flotante si existe */
 .logo {
-  position: fixed;
-  top: 40px;
-  left: 40px;
-  width: 200px;
-  z-index: 1000;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+  display: none;
 }
 
-/* Contenedor central */
+/* Contenedor */
 .container {
+  position: relative;
+  z-index: 2;
+
   text-align: center;
   color: white;
 }
 
 /* Título */
 h1 {
-  margin-bottom: 40px;
-  font-size: 2rem;
+  margin-bottom: 50px;
+  font-size: 2.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
-/* Contenedor de botones */
+/* Opciones */
 .options {
   display: flex;
   gap: 30px;
@@ -44,28 +79,39 @@ h1 {
 
 /* Tarjetas */
 .card {
+  width: 240px;
+  height: 150px;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  width: 220px;
-  height: 140px;
-
-  background: white;
-  color: #043262;
-
-  font-size: 1.5rem;
-  font-weight: bold;
   text-decoration: none;
+  color: white;
 
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  font-size: 1.4rem;
+  font-weight: 500;
 
-  transition: all 0.2s ease;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+
+  transition: all 0.25s ease;
 }
 
 /* Hover */
 .card:hover {
-  transform: scale(1.05);
-  background: #f1f5ff;
+  transform: translateY(-8px) scale(1.03);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* Click */
+.card:active {
+  transform: scale(0.97);
 }
