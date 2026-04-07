@@ -20,14 +20,8 @@ app.post("/generar", async (req, res) => {
 
     const buffer = await generarDocx(req.body);
 
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=crucero.docx"
-    );
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    );
+    res.setHeader("Content-Disposition", "attachment; filename=crucero.docx");
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
     res.send(buffer);
   } catch (err) {
@@ -49,14 +43,8 @@ app.post("/generar-vuelos", async (req, res) => {
       .replace(/\s+/g, "_")
       .replace(/[^\w\-]/g, "");
 
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=Cotizacion_Vuelo_${nombre}.docx`
-    );
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    );
+    res.setHeader("Content-Disposition", `attachment; filename=Cotizacion_Vuelo_${nombre}.docx`);
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
     res.send(buffer);
   } catch (err) {
@@ -74,20 +62,12 @@ app.post("/generar-viajes", async (req, res) => {
 
     const buffer = await generarViajesDocx(req.body);
 
-    // 🔥 nombre dinámico
     const nombre = (req.body.Nombre_Viaje?.trim() || "viaje")
-      .replace(/\s+/g, "_")        // espacios → _
-      .replace(/[^\w\-]/g, "");    // limpia caracteres raros
+      .replace(/\s+/g, "_")
+      .replace(/[^\w\-]/g, "");
 
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=Cotizacion_Viaje_${nombre}.docx`
-    );
-
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    );
+    res.setHeader("Content-Disposition", `attachment; filename=Cotizacion_Viaje_${nombre}.docx`);
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
     res.send(buffer);
   } catch (err) {
@@ -96,8 +76,7 @@ app.post("/generar-viajes", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Servidor en http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor en puerto ${PORT}`);
 });
-
-

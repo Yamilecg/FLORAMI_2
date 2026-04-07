@@ -1,9 +1,14 @@
 const fs = require("fs");
+const path = require("path");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
 async function generarVuelosDocx(data) {
-  const content = fs.readFileSync("./backend/templates/vuelos.docx", "binary");
+  // ← CAMBIO: ruta absoluta con __dirname
+  const content = fs.readFileSync(
+    path.join(__dirname, "templates/vuelos.docx"),
+    "binary"
+  );
 
   const zip = new PizZip(content);
 
@@ -18,7 +23,6 @@ async function generarVuelosDocx(data) {
   });
 
   try {
-
     doc.render({
       ...data,
       vuelos: Array.isArray(data.vuelos) ? data.vuelos : [],
@@ -35,4 +39,3 @@ async function generarVuelosDocx(data) {
 }
 
 module.exports = { generarVuelosDocx };
-

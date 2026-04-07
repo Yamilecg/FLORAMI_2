@@ -1,9 +1,14 @@
 const fs = require("fs");
+const path = require("path");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
 async function generarDocx(data) {
-  const content = fs.readFileSync("./backend/templates/fondo.docx", "binary");
+  // ← CAMBIO: ruta absoluta con __dirname
+  const content = fs.readFileSync(
+    path.join(__dirname, "templates/fondo.docx"),
+    "binary"
+  );
 
   const zip = new PizZip(content);
 
