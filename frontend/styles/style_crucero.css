@@ -229,3 +229,36 @@ textarea {
     width: 100%;
   }
 }
+
+/* =====================
+   BOTONES DESCARGA
+===================== */
+
+.botones-descarga {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn-docx {
+  background: #043262;
+}
+
+.btn-docx:hover {
+  background: #06509a;
+}
+
+.btn-pdf {
+  background: #b91c1c;
+}
+
+.btn-pdf:hover {
+  background: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .botones-descarga {
+    grid-template-columns: 1fr;
+  }
+}

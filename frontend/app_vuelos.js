@@ -40,3 +40,23 @@ function obtenerVuelos() {
 
   return vuelos;
 }
+
+document.getElementById("btn-pdf")?.addEventListener("click", async () => {
+  const data = Object.fromEntries(new FormData(form).entries());
+  data.vuelos = obtenerVuelos();
+
+  const res = await fetch("/generar-vuelos-pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  const nombre = (data.Nombre_Viaje || "vuelos").replace(/\s+/g, "_");
+  a.download = `cotizacion_vuelos_${nombre}.pdf`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+});
