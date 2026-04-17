@@ -4,7 +4,6 @@ const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
 async function generarViajesDocx(data) {
-  // ← CAMBIO: ruta absoluta con __dirname
   const content = fs.readFileSync(
     path.join(__dirname, "templates/viajes.docx"),
     "binary"
@@ -29,6 +28,7 @@ async function generarViajesDocx(data) {
       destinos: Array.isArray(data.destinos) ? data.destinos : [],
       vuelos_extra: Array.isArray(data.vuelos_extra) ? data.vuelos_extra : [],
       itinerario: Array.isArray(data.itinerario) ? data.itinerario : [],
+      costos: Array.isArray(data.costos) ? data.costos : [],
     });
   } catch (error) {
     console.log("ERROR DOCX VIAJES:");

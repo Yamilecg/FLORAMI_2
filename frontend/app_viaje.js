@@ -8,7 +8,9 @@ form.addEventListener("submit", async (e) => {
   data.pasajeros = obtenerPasajeros();
   data.destinos = obtenerDestinos();
   data.vuelos_extra = obtenerVuelosExtra();
+  data.costos = obtenerCostos();
   data.itinerario = obtenerItinerario();
+
 
   const res = await fetch("/generar-viajes", {
     method: "POST",
@@ -71,6 +73,20 @@ function obtenerVuelosExtra() {
   return arr;
 }
 
+
+function obtenerCostos() {
+  const arr = [];
+  document.querySelectorAll(".costo-extra").forEach(c => {
+    arr.push({
+      hotel: c.querySelector('[name="hotel"]').value,
+      descripcion: c.querySelector('[name="descripcion"]').value,
+      total_persona: c.querySelector('[name="total_persona"]').value,
+      total_general: c.querySelector('[name="total_general"]').value,
+    });
+  });
+  return arr;
+}
+
 function obtenerItinerario() {
   const arr = [];
   document.querySelectorAll(".itinerario-item").forEach(i => {
@@ -82,12 +98,14 @@ function obtenerItinerario() {
   return arr;
 }
 
+
 document.getElementById("btn-pdf")?.addEventListener("click", async () => {
   const data = Object.fromEntries(new FormData(form).entries());
 
   data.pasajeros = obtenerPasajeros();
   data.destinos = obtenerDestinos();
   data.vuelos_extra = obtenerVuelosExtra();
+  data.costos = obtenerCostos();
   data.itinerario = obtenerItinerario();
 
   const res = await fetch("/generar-viajes-pdf", {

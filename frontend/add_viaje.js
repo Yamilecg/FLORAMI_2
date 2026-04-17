@@ -9,14 +9,14 @@ function setupDynamic(containerId, buttonId, template, className) {
 
   btn.addEventListener("click", () => {
     const div = document.createElement("div");
-    div.classList.add(className); // ✅ CLASE CORRECTA
+    div.classList.add(className); 
     div.innerHTML = template;
     container.appendChild(div);
   });
 
   container.addEventListener("click", (e) => {
     if (e.target.classList.contains("remove")) {
-      e.target.parentElement.remove();
+      e.target.closest(`.${className}`).remove();
     }
   });
 }
@@ -64,6 +64,22 @@ setupDynamic(
   <button type="button" class="remove">X</button>
 `,
   "vuelo-extra"
+);
+
+// =========================
+// COSTOS EXTRA
+// =========================
+setupDynamic(
+  "costos-extra-container",
+  "add-costo-extra",
+  `
+  <input type="text" name="hotel" placeholder="Nombre del hotel">
+  <input type="text" name="descripcion" placeholder="Descripción y detalles">
+  <input type="text" name="total_persona" placeholder="Total por persona">
+  <input type="text" name="total_general" placeholder="Total general">
+  <button type="button" class="remove">X</button>
+  `,
+  "costo-extra"
 );
 
 // =========================

@@ -79,11 +79,20 @@
 
     <!-- COSTOS -->
     <div class="card">
-      <h2>Costos</h2>
-      <div class="grid-2">
-        <input type="text" name="total_persona" placeholder="Total por persona">
-        <input type="text" name="total_general" placeholder="Total general">
-      </div>
+      <h2>Costos y Servicios</h2>
+          <div id="costos-extra-container">
+            <div class="costo-extra">
+              <input type="text" name="hotel" placeholder="Nombre del hotel">
+              <input type="text" name="descripcion" placeholder="Descripción y detalles">
+              <input type="text" name="total_persona" placeholder="Total por persona">
+              <input type="text" name="total_general" placeholder="Total general">
+              <button type="button" class="remove">X</button>
+            </div>
+          </div>
+
+      <button type="button" id="add-costo-extra" class="add-btn">
+        + Agregar servicio
+      </button>
     </div>
 
     <!-- ITINERARIO -->
