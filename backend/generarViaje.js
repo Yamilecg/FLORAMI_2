@@ -3,19 +3,16 @@ const path = require("path");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
-async function generarViajesDocx(data) {
-  const content = fs.readFileSync(
+// Lee el template base (para conservar header/footer con el fondo)
+function getTemplate() {
+  return fs.readFileSync(
     path.join(__dirname, "templates/viajes.docx"),
     "binary"
   );
-  const zip = new PizZip(content);
-  const doc = new Docxtemplater(zip, {
-    paragraphLoop: true,
-    linebreaks: true,
-    nullGetter: () => "",
-    delimiters: { start: "[[", end: "]]" },
-  });
+}
 
+function render(data) {
+  // Limpia y filtra todos los arrays
   const pasajeros = (Array.isArray(data.pasajeros) ? data.pasajeros : [])
     .filter(p => p.nombre?.trim() || p.apellidos?.trim())
     .map(p => ({
@@ -64,32 +61,45 @@ async function generarViajesDocx(data) {
       descripcion: i.descripcion?.trim() || "",
     }));
 
+  return {
+    Nombre_Viaje: data.Nombre_Viaje?.trim() || "",
+    tiene_nombre: !!(data.Nombre_Viaje?.trim()),
+    fecha_inicio: data.fecha_inicio?.trim() || "",
+    fecha_fin: data.fecha_fin?.trim() || "",
+    tiene_fechas: !!(data.fecha_inicio?.trim() || data.fecha_fin?.trim()),
+    tiene_destinos: destinos.length > 0,
+    tiene_pasajeros: pasajeros.length > 0,
+    tiene_vuelos_extra: vuelos_extra.length > 0,
+    tiene_costos: costos.length > 0,
+    tiene_itinerario: itinerario.length > 0,
+    tiene_beneficios: !!(data.beneficios?.trim()),
+    tiene_restricciones: !!(data.restricciones?.trim()),
+    tiene_actividades: !!(data.actividades_detalladas?.trim()),
+    tiene_plan: !!(data.plan_alimentos?.trim()),
+    destinos,
+    pasajeros,
+    vuelos_extra,
+    costos,
+    itinerario,
+    beneficios: data.beneficios?.trim() || "",
+    restricciones: data.restricciones?.trim() || "",
+    actividades_detalladas: data.actividades_detalladas?.trim() || "",
+    plan_alimentos: data.plan_alimentos?.trim() || "",
+  };
+}
+
+async function generarViajesDocx(data) {
+  const content = getTemplate();
+  const zip = new PizZip(content);
+  const doc = new Docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+    nullGetter: () => "",
+    delimiters: { start: "[[", end: "]]" },
+  });
+
   try {
-    doc.render({
-      tiene_nombre: !!(data.Nombre_Viaje?.trim()),
-      Nombre_Viaje: data.Nombre_Viaje?.trim() || "",
-      tiene_fechas: !!(data.fecha_inicio?.trim() || data.fecha_fin?.trim()),
-      fecha_inicio: data.fecha_inicio?.trim() || "",
-      fecha_fin: data.fecha_fin?.trim() || "",
-      tiene_destinos: destinos.length > 0,
-      destinos,
-      tiene_pasajeros: pasajeros.length > 0,
-      pasajeros,
-      tiene_vuelos_extra: vuelos_extra.length > 0,
-      vuelos_extra,
-      tiene_itinerario: itinerario.length > 0,
-      itinerario,
-      tiene_costos: costos.length > 0,
-      costos,
-      tiene_beneficios: !!(data.beneficios?.trim()),
-      beneficios: data.beneficios?.trim() || "",
-      tiene_restricciones: !!(data.restricciones?.trim()),
-      restricciones: data.restricciones?.trim() || "",
-      tiene_actividades: !!(data.actividades_detalladas?.trim()),
-      actividades_detalladas: data.actividades_detalladas?.trim() || "",
-      tiene_plan: !!(data.plan_alimentos?.trim()),
-      plan_alimentos: data.plan_alimentos?.trim() || "",
-    });
+    doc.render(render(data));
   } catch (error) {
     console.log("ERROR DOCX VIAJES:", JSON.stringify(error, null, 2));
     throw error;

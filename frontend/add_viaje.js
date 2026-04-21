@@ -73,10 +73,12 @@ setupDynamic(
   "costos-extra-container",
   "add-costo-extra",
   `
-  <input type="text" name="hotel" placeholder="Nombre del hotel">
-  <input type="text" name="descripcion" placeholder="Descripción y detalles">
-  <input type="text" name="total_persona" placeholder="Total por persona">
-  <input type="text" name="total_general" placeholder="Total general">
+  <input type="text" name="hotel" placeholder="Nombre del servicio">
+  <textarea name="descripcion_servicio" placeholder="Detalles del servicio..."></textarea>
+  <div class="grid-2">
+    <input type="text" name="total_persona" placeholder="Costo por persona">
+    <input type="text" name="total_general" placeholder="Total general">
+  </div>
   <button type="button" class="remove">X</button>
   `,
   "costo-extra"

@@ -79,7 +79,7 @@ function obtenerCostos() {
   document.querySelectorAll(".costo-extra").forEach(c => {
     arr.push({
       hotel: c.querySelector('[name="hotel"]').value,
-      descripcion: c.querySelector('[name="descripcion"]').value,
+      descripcion_servicio: c.querySelector('[name="descripcion_servicio"]').value,
       total_persona: c.querySelector('[name="total_persona"]').value,
       total_general: c.querySelector('[name="total_general"]').value,
     });
