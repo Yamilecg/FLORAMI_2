@@ -93,7 +93,7 @@ function obtenerPasajeros() {
     pasajeros.push({
       nombre: p.querySelector('[name="nombre"]').value,
       Apellidos: p.querySelector('[name="Apellidos"]').value,
-      edad: p.querySelector('[name="edad"]').value,
+      edad: p.querySelector('[name="edad"]').value || "",
     });
   });
 
