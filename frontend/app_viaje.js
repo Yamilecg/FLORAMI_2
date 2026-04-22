@@ -60,6 +60,17 @@ function obtenerDestinos() {
   return arr;
 }
 
+function formato12h(hora) {
+  if (!hora) return "";
+  let [h, m] = hora.split(":");
+  h = parseInt(h);
+
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+
+  return `${h}:${m} ${ampm}`;
+}
+
 function obtenerVuelosExtra() {
   const arr = [];
   document.querySelectorAll(".vuelo-extra").forEach(v => {
@@ -67,7 +78,10 @@ function obtenerVuelosExtra() {
       fecha_vuelo: v.querySelector('[name="fecha_vuelo"]').value,
       origen: v.querySelector('[name="origen"]').value,
       destino: v.querySelector('[name="destino"]').value,
-      detalle: v.querySelector('[name="detalle"]').value,
+      aerolinea: v.querySelector('[name="aerolinea"]').value,
+      hora_sale: formato12h(v.querySelector('[name="hora_sale"]').value),
+      hora_llega: formato12h(v.querySelector('[name="hora_llega"]').value),
+      costo_vuelo: v.querySelector('[name="costo_vuelo"]').value,
     });
   });
   return arr;

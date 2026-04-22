@@ -53,18 +53,32 @@ setupDynamic(
 // =========================
 // VUELOS EXTRA
 // =========================
-setupDynamic(
-  "vuelos-extra-container",
-  "add-vuelo-extra",
-  `
-  <input type="date" name="fecha_vuelo">
-  <input type="text" name="origen" placeholder="Origen">
-  <input type="text" name="destino" placeholder="Destino">
-  <input type="text" name="detalle" placeholder="Hora, aerolínea, notas">
-  <button type="button" class="remove">X</button>
-`,
-  "vuelo-extra"
-);
+const vuelosExtraContainer = document.getElementById("vuelos-extra-container");
+const addVueloExtraBtn = document.getElementById("add-vuelo-extra");
+
+if (addVueloExtraBtn) {
+  addVueloExtraBtn.addEventListener("click", () => {
+    const tr = document.createElement("tr");
+    tr.classList.add("vuelo-extra");
+    tr.innerHTML = `
+      <td><input type="date" name="fecha_vuelo"></td>
+      <td><input type="text" name="origen" placeholder="GDL"></td>
+      <td><input type="text" name="destino" placeholder="CUN"></td>
+      <td><input type="text" name="aerolinea" placeholder="Volaris"></td>
+      <td><input type="time" name="hora_sale"></td>
+      <td><input type="time" name="hora_llega"></td>
+      <td><input type="text" name="costo_vuelo" placeholder="$5,000"></td>
+      <td><button type="button" class="remove">X</button></td>
+    `;
+    vuelosExtraContainer.appendChild(tr);
+  });
+
+  vuelosExtraContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove")) {
+      e.target.closest("tr").remove();
+    }
+  });
+}
 
 // =========================
 // COSTOS EXTRA

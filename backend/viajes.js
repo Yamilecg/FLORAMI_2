@@ -3,6 +3,22 @@ const path = require("path");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
+function formato12h(hora) {
+  if (!hora) return "";
+
+  if (hora.includes("AM") || hora.includes("PM")) {
+    return hora;
+  }
+
+  let [h, m] = hora.split(":");
+  h = parseInt(h);
+
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+
+  return `${h}:${m} ${ampm}`;
+}
+
 async function generarViajesDocx(data) {
   const content = fs.readFileSync(
     path.join(__dirname, "templates/viajes.docx"),
@@ -39,9 +55,10 @@ async function generarViajesDocx(data) {
       fecha_vuelo: v.fecha_vuelo?.trim() || "",
       origen: v.origen?.trim() || "",
       destino: v.destino?.trim() || "",
-      detalle: v.detalle?.trim() || "",
-      tiene_detalle: !!(v.detalle?.trim()),
-      tiene_fecha: !!(v.fecha_vuelo?.trim()),
+      aerolinea: v.aerolinea?.trim() || "",
+      hora_sale: v.hora_sale ? formato12h(v.hora_sale.trim()) : "",
+      hora_llega: v.hora_llega ? formato12h(v.hora_llega.trim()) : "",
+      costo_vuelo: v.costo_vuelo?.trim() || "",
     }));
 
   const costos = (Array.isArray(data.costos) ? data.costos : [])

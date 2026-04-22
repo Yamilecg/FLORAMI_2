@@ -60,39 +60,41 @@
       <button type="button" id="add-pasajero" class="add-btn">+ Agregar pasajero</button>
     </div>
 
-    <!-- VUELOS EXTRA -->
+    <!-- VUELOS -->
     <div class="card">
-      <h2>Vuelos Extras</h2>
-
-      <div id="vuelos-extra-container">
-        <div class="vuelo-extra">
-          <input type="date" name="fecha_vuelo">
-          <input type="text" name="origen" placeholder="Origen">
-          <input type="text" name="destino" placeholder="Destino">
-          <input type="text" name="detalle" placeholder="Hora, aerolínea, notas">
-          <button type="button" class="remove">X</button>
-        </div>
+      <h2>Trayectos de Vuelo</h2>
+      <div class="tabla-vuelos-wrapper">
+        <table class="tabla-vuelos" id="tabla-vuelos">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Origen</th>
+              <th>Destino</th>
+              <th>Línea Aérea</th>
+              <th>Sale</th>
+              <th>Llega</th>
+              <th>Costo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="vuelos-extra-container">
+            <tr class="vuelo-extra">
+              <td><input type="date" name="fecha_vuelo"></td>
+              <td><input type="text" name="origen" placeholder="Origen"></td>
+              <td><input type="text" name="destino" placeholder="Destino"></td>
+              <td><input type="text" name="aerolinea" placeholder="Línea Aérea"></td>
+              <td><input type="time" name="hora_sale"></td>
+              <td><input type="time" name="hora_llega"></td>
+              <td><input type="text" name="costo_vuelo" placeholder="$"></td>
+              <td><button type="button" class="remove">X</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <button type="button" id="add-vuelo-extra" class="add-btn">+ Agregar vuelo</button>
     </div>
 
-    <!-- COSTOS -->
-    <div class="card">
-      <h2>Costos y Servicios</h2>
-      <div id="costos-extra-container">
-        <div class="costo-extra">
-          <input type="text" name="hotel" placeholder="Nombre del servicio">
-          <textarea name="descripcion_servicio" placeholder="Detalles del servicio..."></textarea>
-          <div class="grid-2">
-            <input type="text" name="total_persona" placeholder="Costo por persona">
-            <input type="text" name="total_general" placeholder="Total general">
-          </div>
-          <button type="button" class="remove">X</button>
-        </div>
-      </div>
-      <button type="button" id="add-costo-extra" class="add-btn">+ Agregar servicio</button>
-    </div>
 
     <!-- ITINERARIO -->
     <div class="card">

@@ -141,19 +141,6 @@ button {
    VUELOS EXTRA (FIXED)
 ===================== */
 
-.vuelo-extra {
-  display: grid;
-  grid-template-columns: 130px 1fr 1fr 2fr 40px;
-  gap: 10px;
-  margin-bottom: 12px;
-  align-items: center;
-
-  padding: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: #f9fbfd;
-  transition: 0.2s;
-}
 
 .vuelo-extra:hover {
   border-color: #043262;
@@ -297,4 +284,75 @@ button {
 .costo-extra textarea {
   min-height: 80px;
   resize: vertical;
+}
+
+
+/* =====================
+   TABLA DE VUELOS
+===================== */
+.tabla-vuelos-wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.tabla-vuelos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 700px;
+}
+
+.tabla-vuelos thead tr {
+  background: #043262;
+  color: white;
+}
+
+.tabla-vuelos th {
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tabla-vuelos tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f9fbfd;
+}
+
+.tabla-vuelos tbody tr:hover {
+  background: #f1f6fb;
+}
+
+.tabla-vuelos td {
+  padding: 6px 4px;
+}
+
+.tabla-vuelos td input {
+  padding: 7px 6px;
+  font-size: 12px;
+  border-radius: 6px;
+  width: 100%;
+  min-width: 60px;
+}
+
+.tabla-vuelos td:last-child {
+  width: 40px;
+  text-align: center;
+}
+
+.tabla-vuelos .remove {
+  height: 30px;
+  width: 30px;
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  .tabla-vuelos {
+    font-size: 11px;
+  }
+  .tabla-vuelos th,
+  .tabla-vuelos td input {
+    font-size: 11px;
+  }
 }
