@@ -1,30 +1,47 @@
-// =====================
-// PASAJEROS
-// =====================
-const pasajerosContainer = document.getElementById("pasajeros-container");
-const addPasajeroBtn = document.getElementById("add-pasajero");
+// =========================
+// CONTADOR ADULTOS / NIÑOS
+// =========================
+function setupContador(id) {
+  const input = document.getElementById(id);
+  if (!input) return;
 
-if (addPasajeroBtn) {
-  addPasajeroBtn.addEventListener("click", () => {
-    const div = document.createElement("div");
-    div.classList.add("pasajero");
-
-    div.innerHTML = `
-      <input type="text" name="nombre" placeholder="Nombre(s)">
-      <input type="text" name="Apellidos" placeholder="Apellido(s)">
-      <input type="number" name="edad" placeholder="Edad">
-      <button type="button" class="remove">X</button>
-    `;
-
-    pasajerosContainer.appendChild(div);
+  input.closest(".contador").querySelector(".btn-minus").addEventListener("click", () => {
+    const val = parseInt(input.value) || 0;
+    if (val > 0) input.value = val - 1;
+    if (id === "ninos") actualizarEdades();
   });
 
-  pasajerosContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("remove")) {
-      e.target.parentElement.remove();
-    }
+  input.closest(".contador").querySelector(".btn-plus").addEventListener("click", () => {
+    input.value = (parseInt(input.value) || 0) + 1;
+    if (id === "ninos") actualizarEdades();
   });
+
+  if (id === "ninos") {
+    input.addEventListener("change", actualizarEdades);
+  }
 }
+
+function actualizarEdades() {
+  const ninos = parseInt(document.getElementById("ninos").value) || 0;
+  const container = document.getElementById("edades-ninos-container");
+  const grid = document.getElementById("edades-ninos");
+
+  container.style.display = ninos > 0 ? "block" : "none";
+  grid.innerHTML = "";
+
+  for (let i = 1; i <= ninos; i++) {
+    const div = document.createElement("div");
+    div.classList.add("edad-nino");
+    div.innerHTML = `
+      <label>Niño ${i}</label>
+      <input type="number" name="edad_nino" placeholder="Edad" min="0" max="17">
+    `;
+    grid.appendChild(div);
+  }
+}
+
+setupContador("adultos");
+setupContador("ninos");
 
 // =====================
 // DESTINOS
@@ -36,13 +53,11 @@ if (addDestinoBtn) {
   addDestinoBtn.addEventListener("click", () => {
     const div = document.createElement("div");
     div.classList.add("destino");
-
     div.innerHTML = `
       <input type="text" name="destino" placeholder="Ingrese un destino">
       <input type="text" name="nombre_hospedaje" placeholder="Nombre del hospedaje">
       <button type="button" class="remove">X</button>
     `;
-
     destinosContainer.appendChild(div);
   });
 
@@ -62,16 +77,13 @@ const addItinerarioBtn = document.getElementById("add-itinerario");
 if (addItinerarioBtn) {
   addItinerarioBtn.addEventListener("click", () => {
     const count = document.querySelectorAll(".itinerario-item").length + 1;
-
     const div = document.createElement("div");
     div.classList.add("itinerario-item");
-
     div.innerHTML = `
       <input type="text" name="dia" value="Día ${count}">
       <textarea name="descripcion" placeholder="Descripción del día..."></textarea>
       <button type="button" class="remove">X</button>
     `;
-
     itinerarioContainer.appendChild(div);
   });
 
@@ -85,43 +97,24 @@ if (addItinerarioBtn) {
 // =====================
 // OBTENER DATOS
 // =====================
-
-function obtenerPasajeros() {
-  const pasajeros = [];
-
-  document.querySelectorAll(".pasajero").forEach((p) => {
-    pasajeros.push({
-      nombre: p.querySelector('[name="nombre"]').value,
-      Apellidos: p.querySelector('[name="Apellidos"]').value,
-      edad: p.querySelector('[name="edad"]').value || "",
-    });
-  });
-
-  return pasajeros;
-}
-
 function obtenerDestinos() {
   const destinos = [];
-
   document.querySelectorAll(".destino").forEach((d) => {
     destinos.push({
       destino: d.querySelector('[name="destino"]').value,
       nombre_hospedaje: d.querySelector('[name="nombre_hospedaje"]').value,
     });
   });
-
   return destinos;
 }
 
 function obtenerItinerario() {
   const dias = [];
-
   document.querySelectorAll(".itinerario-item").forEach((item) => {
     dias.push({
       dia: item.querySelector('[name="dia"]').value,
       descripcion: item.querySelector('[name="descripcion"]').value,
     });
   });
-
   return dias;
 }

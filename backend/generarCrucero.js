@@ -15,14 +15,12 @@ function render(data) {
   // =========================
   // PASAJEROS
   // =========================
-  const pasajeros = (Array.isArray(data.pasajeros) ? data.pasajeros : [])
-    .filter(p => p.nombre?.trim() || p.Apellidos?.trim())
-    .map(p => ({
-      nombre: p.nombre?.trim() || "",
-      Apellidos: p.Apellidos?.trim() || "",
-      edad: p.edad?.trim() || "",
-      tiene_edad: !!(p.edad?.trim()),
-    }));
+  const pasajeros = data.pasajeros || {};
+  const adultos = parseInt(pasajeros.adultos) || 0;
+  const ninos = parseInt(pasajeros.ninos) || 0;
+  const edades_ninos = Array.isArray(pasajeros.edades)
+    ? pasajeros.edades.map((e, i) => ({ numero: i + 1, edad: e }))
+    : [];
 
   // =========================
   // DESTINOS
@@ -68,8 +66,11 @@ function render(data) {
     // =========================
     // PASAJEROS
     // =========================
-    pasajeros,
-    tiene_pasajeros: pasajeros.length > 0,
+    adultos,
+    ninos,
+    edades_ninos,
+    tiene_pasajeros: adultos > 0 || ninos > 0,
+    tiene_ninos: ninos > 0,
 
     // =========================
     // COSTOS

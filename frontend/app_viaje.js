@@ -38,15 +38,12 @@ form.addEventListener("submit", async (e) => {
 ===================== */
 
 function obtenerPasajeros() {
-  const arr = [];
-  document.querySelectorAll(".pasajero").forEach(p => {
-    arr.push({
-      nombre: p.querySelector('[name="nombre"]').value,
-      apellidos: p.querySelector('[name="apellidos"]').value,
-      edad: p.querySelector('[name="edad"]').value,
-    });
-  });
-  return arr;
+  const adultos = parseInt(document.getElementById("adultos")?.value) || 0;
+  const ninos = parseInt(document.getElementById("ninos")?.value) || 0;
+  const edades = Array.from(document.querySelectorAll('[name="edad_nino"]'))
+    .map(i => i.value.trim())
+    .filter(v => v !== "");
+  return { adultos, ninos, edades };
 }
 
 function obtenerDestinos() {

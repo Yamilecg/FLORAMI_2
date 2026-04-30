@@ -22,21 +22,6 @@ function setupDynamic(containerId, buttonId, template, className) {
 }
 
 // =========================
-// PASAJEROS
-// =========================
-setupDynamic(
-  "pasajeros-container",
-  "add-pasajero",
-  `
-  <input type="text" name="nombre" placeholder="Nombre(s)">
-  <input type="text" name="apellidos" placeholder="Apellido(s)">
-  <input type="number" name="edad" placeholder="Edad">
-  <button type="button" class="remove">X</button>
-`,
-  "pasajero"
-);
-
-// =========================
 // DESTINOS
 // =========================
 setupDynamic(
@@ -49,6 +34,51 @@ setupDynamic(
 `,
   "destino"
 );
+
+// =========================
+// CONTADOR ADULTOS / NIÑOS
+// =========================
+function setupContador(id) {
+  const input = document.getElementById(id);
+  if (!input) return;
+
+  input.closest(".contador").querySelector(".btn-minus").addEventListener("click", () => {
+    const val = parseInt(input.value) || 0;
+    if (val > 0) input.value = val - 1;
+    if (id === "ninos") actualizarEdades();
+  });
+
+  input.closest(".contador").querySelector(".btn-plus").addEventListener("click", () => {
+    input.value = (parseInt(input.value) || 0) + 1;
+    if (id === "ninos") actualizarEdades();
+  });
+
+  if (id === "ninos") {
+    input.addEventListener("change", actualizarEdades);
+  }
+}
+
+function actualizarEdades() {
+  const ninos = parseInt(document.getElementById("ninos").value) || 0;
+  const container = document.getElementById("edades-ninos-container");
+  const grid = document.getElementById("edades-ninos");
+
+  container.style.display = ninos > 0 ? "block" : "none";
+  grid.innerHTML = "";
+
+  for (let i = 1; i <= ninos; i++) {
+    const div = document.createElement("div");
+    div.classList.add("edad-nino");
+    div.innerHTML = `
+      <label>Niño ${i}</label>
+      <input type="number" name="edad_nino" placeholder="Edad" min="0" max="17">
+    `;
+    grid.appendChild(div);
+  }
+}
+
+setupContador("adultos");
+setupContador("ninos");
 
 // =========================
 // VUELOS EXTRA
@@ -111,3 +141,4 @@ setupDynamic(
 `,
   "itinerario-item"
 );
+

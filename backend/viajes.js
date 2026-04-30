@@ -5,17 +5,11 @@ const Docxtemplater = require("docxtemplater");
 
 function formato12h(hora) {
   if (!hora) return "";
-
-  if (hora.includes("AM") || hora.includes("PM")) {
-    return hora;
-  }
-
+  if (hora.includes("AM") || hora.includes("PM")) return hora;
   let [h, m] = hora.split(":");
   h = parseInt(h);
-
   const ampm = h >= 12 ? "PM" : "AM";
   h = h % 12 || 12;
-
   return `${h}:${m} ${ampm}`;
 }
 
@@ -31,15 +25,6 @@ async function generarViajesDocx(data) {
     nullGetter: () => "",
     delimiters: { start: "[[", end: "]]" },
   });
-
-  const pasajeros = (Array.isArray(data.pasajeros) ? data.pasajeros : [])
-    .filter(p => p.nombre?.trim() || p.apellidos?.trim())
-    .map(p => ({
-      nombre: p.nombre?.trim() || "",
-      apellidos: p.apellidos?.trim() || "",
-      edad: p.edad?.trim() || "",
-      tiene_edad: !!(p.edad?.trim()),
-    }));
 
   const destinos = (Array.isArray(data.destinos) ? data.destinos : [])
     .filter(d => d.destino?.trim())
@@ -81,6 +66,13 @@ async function generarViajesDocx(data) {
       descripcion: i.descripcion?.trim() || "",
     }));
 
+  const pasajerosData = data.pasajeros || {};
+  const adultos = parseInt(pasajerosData.adultos) || 0;
+  const ninos = parseInt(pasajerosData.ninos) || 0;
+  const edades_ninos = Array.isArray(pasajerosData.edades)
+    ? pasajerosData.edades.map((e, i) => ({ numero: i + 1, edad: e }))
+    : [];
+
   try {
     doc.render({
       tiene_nombre: !!(data.Nombre_Viaje?.trim()),
@@ -90,8 +82,11 @@ async function generarViajesDocx(data) {
       fecha_fin: data.fecha_fin?.trim() || "",
       tiene_destinos: destinos.length > 0,
       destinos,
-      tiene_pasajeros: pasajeros.length > 0,
-      pasajeros,
+      tiene_pasajeros: adultos > 0 || ninos > 0,
+      adultos,
+      ninos,
+      tiene_ninos: ninos > 0,
+      edades_ninos,
       tiene_vuelos_extra: vuelos_extra.length > 0,
       vuelos_extra,
       tiene_itinerario: itinerario.length > 0,

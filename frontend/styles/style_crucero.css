@@ -262,3 +262,110 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+
+/* =====================
+   CONTADOR PASAJEROS
+===================== */
+.contador-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.contador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f9fbfd;
+  transition: 0.2s;
+}
+
+.contador:hover {
+  border-color: #043262;
+  background: #f1f6fb;
+}
+
+.contador span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control input {
+  width: auto;
+  min-width: 45px;
+  max-width: 70px;
+  text-align: center;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+}
+
+.control button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+  color: #043262;
+  transition: 0.2s;
+}
+
+.control button:hover {
+  background: #043262;
+  color: white;
+  border-color: #043262;
+}
+
+.edades-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.edades-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.edad-nino {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.edad-nino label {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.edad-nino input {
+  width: 65px;
+  text-align: center;
+  padding: 7px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .contador-row {
+    grid-template-columns: 1fr;
+  }
+}

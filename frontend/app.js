@@ -1,11 +1,19 @@
 const form = document.getElementById("form");
 
+function obtenerPasajeros() {
+  const adultos = parseInt(document.getElementById("adultos")?.value) || 0;
+  const ninos = parseInt(document.getElementById("ninos")?.value) || 0;
+  const edades = Array.from(document.querySelectorAll('[name="edad_nino"]'))
+    .map(i => i.value.trim())
+    .filter(v => v !== "");
+  return { adultos, ninos, edades };
+}
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const data = Object.fromEntries(new FormData(form).entries());
 
-  // ← estas líneas van DENTRO del listener
   data.restricciones = data.restricciones?.trim();
   data.beneficios = data.beneficios?.trim();
   data.actividades_detalladas = data.actividades_detalladas?.trim();
@@ -17,9 +25,7 @@ form.addEventListener("submit", async (e) => {
 
   const res = await fetch("/generar", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
@@ -27,10 +33,8 @@ form.addEventListener("submit", async (e) => {
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-
   const nombre = (data.Nombre_Viaje || "viaje").replace(/\s+/g, "_");
   a.download = `cotización_${nombre}.docx`;
-
   a.click();
   window.URL.revokeObjectURL(url);
 });

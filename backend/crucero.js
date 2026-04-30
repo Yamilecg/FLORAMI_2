@@ -8,7 +8,6 @@ async function generarDocx(data) {
     path.join(__dirname, "templates/fondo.docx"),
     "binary"
   );
-
   const zip = new PizZip(content);
   const doc = new Docxtemplater(zip, {
     paragraphLoop: true,
@@ -17,14 +16,12 @@ async function generarDocx(data) {
     delimiters: { start: "[[", end: "]]" },
   });
 
-  const pasajeros = (Array.isArray(data.pasajeros) ? data.pasajeros : [])
-    .filter(p => p.nombre?.trim() || p.Apellidos?.trim())
-    .map(p => ({
-      nombre: p.nombre?.trim() || "",
-      Apellidos: p.Apellidos?.trim() || "",
-      edad: p.edad?.trim() || "",
-      tiene_edad: !!(p.edad?.trim()),
-    }));
+  const pasajeros = data.pasajeros || {};
+  const adultos = parseInt(pasajeros.adultos) || 0;
+  const ninos = parseInt(pasajeros.ninos) || 0;
+  const edades_ninos = Array.isArray(pasajeros.edades)
+    ? pasajeros.edades.map((e, i) => ({ numero: i + 1, edad: e }))
+    : [];
 
   const destinos = (Array.isArray(data.destinos) ? data.destinos : [])
     .filter(d => d.destino?.trim())
@@ -50,8 +47,11 @@ async function generarDocx(data) {
       fecha_desembarque: data.fecha_desembarque?.trim() || "",
       tiene_destinos: destinos.length > 0,
       destinos,
-      tiene_pasajeros: pasajeros.length > 0,
-      pasajeros,
+      tiene_pasajeros: adultos > 0 || ninos > 0,
+      adultos,
+      ninos,
+      tiene_ninos: ninos > 0,
+      edades_ninos,
       tiene_costos: !!(data.total_persona?.trim() || data.total_general?.trim()),
       tiene_persona: !!(data.total_persona?.trim()),
       total_persona: data.total_persona?.trim() || "",

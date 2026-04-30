@@ -3,7 +3,6 @@ const path = require("path");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
-// Lee el template base (para conservar header/footer con el fondo)
 function getTemplate() {
   return fs.readFileSync(
     path.join(__dirname, "templates/viajes.docx"),
@@ -12,16 +11,6 @@ function getTemplate() {
 }
 
 function render(data) {
-  // Limpia y filtra todos los arrays
-  const pasajeros = (Array.isArray(data.pasajeros) ? data.pasajeros : [])
-    .filter(p => p.nombre?.trim() || p.apellidos?.trim())
-    .map(p => ({
-      nombre: p.nombre?.trim() || "",
-      apellidos: p.apellidos?.trim() || "",
-      edad: p.edad?.trim() || "",
-      tiene_edad: !!(p.edad?.trim()),
-    }));
-
   const destinos = (Array.isArray(data.destinos) ? data.destinos : [])
     .filter(d => d.destino?.trim())
     .map(d => ({
@@ -36,9 +25,10 @@ function render(data) {
       fecha_vuelo: v.fecha_vuelo?.trim() || "",
       origen: v.origen?.trim() || "",
       destino: v.destino?.trim() || "",
-      detalle: v.detalle?.trim() || "",
-      tiene_detalle: !!(v.detalle?.trim()),
-      tiene_fecha: !!(v.fecha_vuelo?.trim()),
+      aerolinea: v.aerolinea?.trim() || "",
+      hora_sale: v.hora_sale?.trim() || "",
+      hora_llega: v.hora_llega?.trim() || "",
+      costo_vuelo: v.costo_vuelo?.trim() || "",
     }));
 
   const costos = (Array.isArray(data.costos) ? data.costos : [])
@@ -61,29 +51,40 @@ function render(data) {
       descripcion: i.descripcion?.trim() || "",
     }));
 
+  // ← Pasajeros nuevo formato
+  const pasajerosData = data.pasajeros || {};
+  const adultos = parseInt(pasajerosData.adultos) || 0;
+  const ninos = parseInt(pasajerosData.ninos) || 0;
+  const edades_ninos = Array.isArray(pasajerosData.edades)
+    ? pasajerosData.edades.map((e, i) => ({ numero: i + 1, edad: e }))
+    : [];
+
   return {
-    Nombre_Viaje: data.Nombre_Viaje?.trim() || "",
     tiene_nombre: !!(data.Nombre_Viaje?.trim()),
+    Nombre_Viaje: data.Nombre_Viaje?.trim() || "",
+    tiene_fechas: !!(data.fecha_inicio?.trim() || data.fecha_fin?.trim()),
     fecha_inicio: data.fecha_inicio?.trim() || "",
     fecha_fin: data.fecha_fin?.trim() || "",
-    tiene_fechas: !!(data.fecha_inicio?.trim() || data.fecha_fin?.trim()),
     tiene_destinos: destinos.length > 0,
-    tiene_pasajeros: pasajeros.length > 0,
-    tiene_vuelos_extra: vuelos_extra.length > 0,
-    tiene_costos: costos.length > 0,
-    tiene_itinerario: itinerario.length > 0,
-    tiene_beneficios: !!(data.beneficios?.trim()),
-    tiene_restricciones: !!(data.restricciones?.trim()),
-    tiene_actividades: !!(data.actividades_detalladas?.trim()),
-    tiene_plan: !!(data.plan_alimentos?.trim()),
     destinos,
-    pasajeros,
+    tiene_pasajeros: adultos > 0 || ninos > 0,
+    adultos,
+    ninos,
+    tiene_ninos: ninos > 0,
+    edades_ninos,
+    tiene_vuelos_extra: vuelos_extra.length > 0,
     vuelos_extra,
-    costos,
+    tiene_itinerario: itinerario.length > 0,
     itinerario,
+    tiene_costos: costos.length > 0,
+    costos,
+    tiene_beneficios: !!(data.beneficios?.trim()),
     beneficios: data.beneficios?.trim() || "",
+    tiene_restricciones: !!(data.restricciones?.trim()),
     restricciones: data.restricciones?.trim() || "",
+    tiene_actividades: !!(data.actividades_detalladas?.trim()),
     actividades_detalladas: data.actividades_detalladas?.trim() || "",
+    tiene_plan: !!(data.plan_alimentos?.trim()),
     plan_alimentos: data.plan_alimentos?.trim() || "",
   };
 }

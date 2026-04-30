@@ -45,19 +45,33 @@
     </div>
 
     <!-- PASAJEROS -->
-    <div class="card">
+    <div class="card pasajeros-card">
       <h2>Pasajeros</h2>
 
-      <div id="pasajeros-container">
-        <div class="pasajero">
-          <input type="text" name="nombre" placeholder="Nombre(s)">
-          <input type="text" name="apellidos" placeholder="Apellido(s)">
-          <input type="number" name="edad" placeholder="Edad">
-          <button type="button" class="remove">X</button>
+      <div class="contador-row">
+        <div class="contador">
+          <span>Adultos</span>
+          <div class="control">
+            <button type="button" class="btn-minus" data-target="adultos">−</button>
+            <input type="number" value="1" min="0" id="adultos" name="adultos">
+            <button type="button" class="btn-plus" data-target="adultos">+</button>
+          </div>
+        </div>
+        <div class="contador">
+          <span>Niños</span>
+          <div class="control">
+            <button type="button" class="btn-minus" data-target="ninos">−</button>
+            <input type="number" value="0" min="0" id="ninos" name="ninos">
+            <button type="button" class="btn-plus" data-target="ninos">+</button>
+          </div>
         </div>
       </div>
 
-      <button type="button" id="add-pasajero" class="add-btn">+ Agregar pasajero</button>
+      <!-- Edades de niños -->
+      <div id="edades-ninos-container" style="margin-top: 14px; display:none;">
+        <p class="edades-label">Edades de los niños</p>
+        <div id="edades-ninos" class="edades-grid"></div>
+      </div>
     </div>
 
     <!-- VUELOS -->
